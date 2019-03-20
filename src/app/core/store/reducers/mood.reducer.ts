@@ -48,7 +48,7 @@ export function reducer(state = initialState, action: MoodActions): State{
             };
 
         /**
-        * DETAILS
+        * DETAILS https://github.com/yduartep/angular-ngrx-crud
         */
         case MoodActionTypes.MOOD_DETAILS:
             return {
