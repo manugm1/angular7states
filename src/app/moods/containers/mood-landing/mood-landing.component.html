@@ -1,0 +1,23 @@
+<section class="sticky">
+  <a routerLink="create" routerLinkActive="router-link-active" class="button"><span> Create</span></a>
+  <a routerLink="a" routerLinkActive="router-link-active" class="button"><span> Details</span></a>
+
+</section>
+<p>
+  mood-landing works!
+</p>
+
+<app-mood-add></app-mood-add>
+
+<table border="1">
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Options</th>
+  </tr>
+  <tr *ngFor="let item of items">
+    <td>{{item.id}}</td>
+    <td>{{item.name}}</td>
+    <td><a routerLink="edit" routerLinkActive="router-link-active" class="button"><span> Edit</span></a></td>
+  </tr>
+</table>
