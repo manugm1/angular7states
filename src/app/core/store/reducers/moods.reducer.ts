@@ -1,7 +1,9 @@
-import { MoodActionTypes, MoodActions } from '../actions/mood.actions';
+import { MoodActionTypes, MoodActions } from '../actions/moods.actions';
 import { Mood } from '../../models/mood';
+import { createFeatureSelector, State, createSelector, select } from '@ngrx/store';
+import { AppState } from '../app.state';
 
-export interface State{
+export interface MoodState{
     data: Mood[];
     selected: Mood;
     action: string,
@@ -9,7 +11,7 @@ export interface State{
     error?: Error
 }
 
-const initialState : State = {
+const initialState : MoodState = {
     data: [],
     selected: null,
     action: null,
@@ -17,7 +19,8 @@ const initialState : State = {
     error: null
 }
 
-export function reducer(state = initialState, action: MoodActions): State{
+export function reducer(state = initialState, action: MoodActions): MoodState{
+    console.log('State: ', state);
     console.log('Action: ', action);
     switch (action.type) {
         /**
@@ -48,7 +51,7 @@ export function reducer(state = initialState, action: MoodActions): State{
             };
 
         /**
-        * DETAILS https://github.com/yduartep/angular-ngrx-crud
+        * DETAILS
         */
         case MoodActionTypes.MOOD_DETAILS:
             return {
@@ -103,3 +106,23 @@ export function reducer(state = initialState, action: MoodActions): State{
             return state;
     }
 }
+
+
+/**
+ * SELECTORS
+ */
+
+export const selectMoodState = (state: AppState) => state.moods;
+
+export const getAllMoods = createSelector(selectMoodState, (state: MoodState) => state.data)
+
+export const getMood = createSelector(selectMoodState, (state: MoodState) => {
+    if (state.action === MoodActionTypes.MOOD_DETAILS && state.done) {
+        return state.selected;
+    } else {
+        return null;
+    }
+});
+
+export const isCreated = createSelector(selectMoodState, (state: MoodState) => 
+       state.action === MoodActionTypes.MOOD_ADD && state.done && !state.error);

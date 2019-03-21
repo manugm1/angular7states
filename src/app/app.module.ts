@@ -6,20 +6,23 @@ import { AppComponent } from './app.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './core/store/reducers/mood.reducer';
-import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import * as moodsReducer from './core/store/reducers/moods.reducer';
+import { SharedModule } from './shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { MoodEffects } from './core/store/effects/moods.effects'
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    SharedModule,
     AppRoutingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreModule.forRoot({mood: reducer})
+    StoreModule.forRoot({moods: moodsReducer.reducer}), // global state
+    EffectsModule.forRoot([MoodEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

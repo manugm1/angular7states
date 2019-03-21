@@ -7,16 +7,15 @@ import { MoodLandingComponent } from './containers/mood-landing/mood-landing.com
 import { MoodAddComponent } from './containers/mood-add/mood-add.component';
 import { MoodDetailComponent } from './containers/mood-detail/mood-detail.component';
 import { MoodEditComponent } from './containers/mood-edit/mood-edit.component';
-import { SharedModule } from '../shared/shared.module';
+import { MoodsComponent } from './moods.component';
 
 @NgModule({
   // Components in declarations are necessary for lazy loading only MoodsModule
-  declarations: [MoodAddComponent, MoodDetailComponent, MoodEditComponent, MoodLandingComponent],
+  declarations: [MoodsComponent, MoodAddComponent, MoodDetailComponent, MoodEditComponent, MoodLandingComponent],
   imports: [
     CommonModule,
     FormsModule,
     MoodsRoutingModule,
-    SharedModule
   ]
 })
 export class MoodsModule { }
