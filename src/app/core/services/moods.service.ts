@@ -8,7 +8,7 @@ import { Mood } from '../models/mood';
 })
 export class MoodsService {
 
-  protected URL = 'http://localhost:3000/api/moods';
+  protected URL = 'http://localhost:5000/api/moods';
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +18,6 @@ export class MoodsService {
    * @returns gets all moods
    */
   public findAll(params?): Observable<Mood[]>{
-    console.log("execute findAll")
     return this.http.get<Mood[]>(this.URL, {params: params})
   }
 

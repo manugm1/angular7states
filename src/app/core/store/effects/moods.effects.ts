@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { MoodActionTypes, MoodGetAllSuccess, MoodGetAllError, MoodAdd, MoodAddSuccess, MoodAddError } from '../actions/moods.actions';
+import { MoodActionTypes, MoodGetAllSuccess, MoodGetAllError, MoodAdd, MoodAddSuccess, MoodAddError, MoodDetails, MoodDetailsSuccess, MoodDetailsError } from '../actions/moods.actions';
 import { MoodsService } from '../../services/moods.service';
 
 
@@ -26,6 +26,16 @@ export class MoodEffects{
         mergeMap(mood => this.moodsService.insert(mood).pipe(
             map((mood) => new MoodAddSuccess(mood.id)),
             catchError((error) => [new MoodAddError(error)])
+        ))
+    )
+
+    @Effect()
+    getMood$ = this.actions$.pipe(
+        ofType(MoodActionTypes.MOOD_DETAILS),
+        map((action: MoodDetails) => action.payload),
+        mergeMap(id => this.moodsService.findById(id).pipe(
+            map((mood) => new MoodDetailsSuccess(mood)),
+            catchError((error) => [new MoodDetailsError(error)])
         ))
     )
 }

@@ -117,9 +117,12 @@ export const selectMoodState = (state: AppState) => state.moods;
 export const getAllMoods = createSelector(selectMoodState, (state: MoodState) => state.data)
 
 export const getMood = createSelector(selectMoodState, (state: MoodState) => {
+    console.log("GET MOOD selector: ")
     if (state.action === MoodActionTypes.MOOD_DETAILS && state.done) {
+        console.log("GET MOOD selector: ", state.selected)
         return state.selected;
     } else {
+        console.log("GET MOOD selector2: ", null)
         return null;
     }
 });
